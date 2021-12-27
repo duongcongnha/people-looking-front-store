@@ -1,0 +1,26 @@
+agnostic_nms: false
+augment: false
+classes: 0
+conf_thres: 0.4
+config_deepsort: settings/deep_sort.yaml
+deep_sort_weights: deep_sort_pytorch/deep_sort/deep/checkpoint/ckpt.t7
+device: ''
+dnn: false
+evaluate: false
+fourcc: mp4v
+half: false
+imgsz:
+- 640
+iou_thres: 0.5
+max_det: 500
+output: inference/output
+save_csv: false
+save_txt: false
+save_vid: false
+show_vid: true
+source: ../video_nhax_cut_resize2.mp4
+visualize: false
+yolo_weights: models/yolov5s.pt
+#deep_sort_pytorch/configs/deep_sort.yaml
+#../settings/deep_sort.yaml
+#../../video_nhax_cut_resize2.mp4
