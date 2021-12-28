@@ -24,11 +24,9 @@ from deep_sort_pytorch.utils.parser import get_config
 from deep_sort_pytorch.deep_sort import DeepSort
 import argparse
 
-# lib_path = os.path.abspath("../")+"\\util"
-# sys.path.append(lib_path)
 
 from util.face_visualizer import plot_face, plot_id
-from util.common import  read_yml, write_csv
+from util.common import  read_yml, write_csv, extract_frame_info
 from util.frontal_face import hog_model, SSD_model#, OPT
 from util.opt_class import OPT
 from util.extract_xywh import extract_xywh_hog
@@ -109,8 +107,9 @@ class Tracker:
         if not evaluate:
             if os.path.exists(out):
                 pass
-                shutil.rmtree(out)  # delete output folder
-            os.makedirs(out)  # make new output folder
+                # shutil.rmtree(out)  # delete output folder
+            else:
+                os.makedirs(out)  # make new output folder
 
         # Load model
         device = select_device(device)
@@ -163,9 +162,11 @@ class Tracker:
             model(torch.zeros(1, 3, *imgsz).to(device).type_as(next(model.model.parameters())))  # warmup
         dt, seen = [0.0, 0.0, 0.0], 0
 
-
         list_ouputs = {}
         list_frontal_faces = {}
+        list_pp = set()
+        list_face = set()
+
         for frame_idx, (path, img, im0s, vid_cap, s) in enumerate(dataset):
             t1 = time_sync()
             img = torch.from_numpy(img).to(device)
@@ -224,6 +225,7 @@ class Tracker:
 
                     # save output info
                     list_ouputs[frame_idx] = outputs
+                    # extract_info_output(list_ouputs, frame_idx, log_file_path)
                     
                     # get upper part of person's box for detect face and visualize box
                     temp_info = []  # for faces
@@ -246,8 +248,6 @@ class Tracker:
                             bbox_h = output[3] - output[1]
 
                             upper_body = im0[bbox_top:(bbox_top+bbox_h//2), bbox_left:bbox_right]
-                            # crop_height = upper_body.shape[0]
-                            # crop_width = upper_body.shape[1]
                             faces, len_faces = face_model.process(upper_body)
                             
                             if len_faces != 0:
@@ -263,7 +263,10 @@ class Tracker:
                         list_frontal_faces[frame_idx] = np.asarray(temp_info)
             
 
-
+                        pp_count, face_count, IDs_pp, IDs_face = extract_frame_info(frame_idx, list_ouputs, list_frontal_faces)
+                        LOGGER.info("frame {}: {} people, {} is looking".format(frame_idx, pp_count, face_count))
+                        list_pp.update(IDs_pp)
+                        list_face.update(IDs_face)
 
                     
 
@@ -290,7 +293,7 @@ class Tracker:
                     deepsort.increment_ages()
 
                 # Print time (inference-only)
-                LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s)')
+                # LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s)')
 
                 # Stream results
                 im0 = annotator.result()
@@ -316,10 +319,18 @@ class Tracker:
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer.write(im0)
 
+        
+        # print("list output")
+        # LOGGER.info(list_ouputs)
+        # print("list_frontal_faces")
         # LOGGER.info(list_frontal_faces)
         # write to csv file
         if save_csv:
             write_csv(csv_path, list_ouputs, list_frontal_faces)
+
+        list_pp.discard(-99)
+        list_face.discard(-99)
+        LOGGER.info("Total of {} people passed and {} people looked at the banner".format(len(list_pp), len(list_face)))
 
         # Print results
         t = tuple(x / seen * 1E3 for x in dt)  # speeds per image

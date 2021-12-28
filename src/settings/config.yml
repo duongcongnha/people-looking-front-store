@@ -14,10 +14,10 @@ imgsz:
 iou_thres: 0.5
 max_det: 500
 output: inference/output
-save_csv: false
+save_csv: true
 save_txt: false
 save_vid: false
-show_vid: true
+show_vid: false
 source: ../video_nhax_cut_resize2.mp4
 visualize: false
 yolo_weights: models/yolov5s.pt

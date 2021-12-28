@@ -28,8 +28,13 @@ def extract_xywh(faces, face_nth, frame_height, frame_width):
   h = y1 - y
   return (x, y, w, h)
 
-def write_csv(csv_path:str, list_ouputs:dict, list_frontal_faces:dict):
-  fi_list = list(set(list(list_ouputs.keys()) + list(list_frontal_faces.keys())))
+def write_csv(csv_path:str, list_ouputs:dict, list_frontal_faces:dict) -> None:
+
+  for fi in list(list_ouputs.keys()):
+    if fi not in list(list_frontal_faces.keys()):
+        list_frontal_faces[fi] = np.asarray([])
+
+  fi_list = list(list_ouputs.keys())
   fi_list.sort()
   with open(csv_path, 'a') as f:
       for fi in fi_list:
@@ -60,4 +65,38 @@ def write_csv(csv_path:str, list_ouputs:dict, list_frontal_faces:dict):
           f.write(str(IDs_face)+";")
           f.write(str_array(bb_pp)+";")
           f.write(str_array(bb_face)+"\n")
+
+def extract_frame_info(frame_idx:int, list_ouputs:dict, list_frontal_faces:dict) -> tuple:
+
+  if frame_idx not in list(list_frontal_faces.keys()):
+    list_frontal_faces[frame_idx] = np.asarray([])
+
+  fi = frame_idx
+  
+
+  pp_component = list_ouputs[fi]
+  face_component = list_frontal_faces[fi]
+
+  pp_count = len(pp_component)
+  face_count = len(face_component)
+
+  if len(pp_component)>0:
+      IDs_pp = list(pp_component[:,4])
+  else:
+      IDs_pp = [-99]
+
+  if len(face_component)>0:
+      IDs_face = list(face_component[:,4])      
+  else:
+      IDs_face = [-99]
+      
+  # with open(log_file_path, 'a') as f:
+  #   f.write("frame ")
+  #   f.write(str(fi)+":")
+  #   f.write(str(pp_count)+" people, ")
+  #   f.write(str(face_count)+" is looking \n")
+
+  return (pp_count, face_count, IDs_pp, IDs_face)
+
+
 
