@@ -54,14 +54,3 @@ Make sure that you fulfill all the requirements: Python 3.7.12 or later with all
 cd src
 python app.py
 ```
-
-## Cite
-
-```latex
-@misc{yolov5deepsort2020,
-    title={Real-time multi-object tracker using YOLOv5 and deep sort},
-    author={Mikel Broström},
-    howpublished = {\url{https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch}},
-    year={2020}
-}
-```
