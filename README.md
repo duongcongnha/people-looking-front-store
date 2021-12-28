@@ -36,7 +36,7 @@ This repository was edited from [this repo](https://github.com/mikel-brostrom/Yo
 
 ## Before you run the tracker
 
-Make sure that you fulfill all the requirements: Python 3.8 or later with all [requirements.txt](https://github.com/duongcongnha/ppattention-intermediary/blob/main/requirements.txt) dependencies installed, including torch>=1.7. To install, run:
+Make sure that you fulfill all the requirements: Python 3.7.12 or later with all [requirements.txt](https://github.com/duongcongnha/ppattention-intermediary/blob/main/requirements.txt) dependencies installed. To install, run:
 
 `pip install -r requirements.txt`
 <br></br>
