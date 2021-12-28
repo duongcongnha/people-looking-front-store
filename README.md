@@ -36,12 +36,6 @@ This repository was edited from [this repo](https://github.com/mikel-brostrom/Yo
 
 ## Before you run the tracker
 
-<!-- 1. Clone the repository recursively:
-
-`git clone --recurse-submodules https://github.com/duongcongnha/People-looking.git`
-
-If you already cloned and forgot to use `--recurse-submodules` you can run `git submodule update --init`
- -->
 Make sure that you fulfill all the requirements: Python 3.8 or later with all [requirements.txt](https://github.com/duongcongnha/ppattention-intermediary/blob/main/requirements.txt) dependencies installed, including torch>=1.7. To install, run:
 
 `pip install -r requirements.txt`
@@ -53,6 +47,13 @@ Make sure that you fulfill all the requirements: Python 3.8 or later with all [r
 ## Config
 
 `src/settings/config.yml`
+
+## Running
+
+```
+cd src
+python app.py
+```
 
 ## Cite
 
