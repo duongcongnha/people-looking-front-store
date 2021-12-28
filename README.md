@@ -42,11 +42,11 @@ This repository was edited from [this repo](https://github.com/mikel-brostrom/Yo
 
 If you already cloned and forgot to use `--recurse-submodules` you can run `git submodule update --init`
  -->
-1. Make sure that you fulfill all the requirements: Python 3.8 or later with all [requirements.txt](https://github.com/duongcongnha/ppattention-intermediary/blob/main/requirements.txt) dependencies installed, including torch>=1.7. To install, run:
+Make sure that you fulfill all the requirements: Python 3.8 or later with all [requirements.txt](https://github.com/duongcongnha/ppattention-intermediary/blob/main/requirements.txt) dependencies installed, including torch>=1.7. To install, run:
 
 `pip install -r requirements.txt`
 <br></br>
-    if you have problem with `pip install dlib`, try install `cmake` first
+    if you have problem with `pip install dlib`, try using `conda`
 <br></br>
     if you have CUDA, delete two lines `torch>=1.7.0` and `torchvision>=0.8.1` in `requirements.txt` and install Pytorch with CUDA later.
     
@@ -55,8 +55,6 @@ If you already cloned and forgot to use `--recurse-submodules` you can run `git 
 `src/settings/config.yml`
 
 ## Cite
-
-If you find this project useful in your research, please consider cite:
 
 ```latex
 @misc{yolov5deepsort2020,
