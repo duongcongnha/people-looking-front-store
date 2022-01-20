@@ -1,0 +1,28 @@
+agnostic_nms: false
+augment: false
+classes: 0
+conf_thres: 0.35
+config_deepsort: ../../settings/deep_sort.yaml
+deep_sort_weights: ../../models/ckpt.t7
+device: ''
+dnn: false
+evaluate: false
+fourcc: mp4v
+half: false
+imgsz:
+- 640
+iou_thres: 0.5
+max_det: 1000
+output: inference/output
+save_csv: false
+save_txt: false
+save_vid: true
+show_vid: false
+source: ../../videos/women2.mp4
+visualize: false
+yolo_weights: ../../models/yolov5m.pt
+upload_db: False
+#deep_sort_pytorch/configs/deep_sort.yaml
+#../settings/deep_sort.yaml
+#../../video_nhax_cut_resize2.mp4
+#deep_sort_weights: deep_sort_pytorch/deep_sort/deep/checkpoint/ckpt.t7
