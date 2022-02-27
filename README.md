@@ -1,8 +1,8 @@
 # Vehicle tracking with Yolov5 + Deep Sort with PyTorch
 
 <p>
+    <img src="videos/women_frame218.PNG" width="300"/>
 <img src="videos/women2_frame334.PNG" width="300"/>
-<img src="videos/women_frame218.PNG" width="300"/>
 </p>
 
 
