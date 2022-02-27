@@ -1,5 +1,4 @@
-# Vehicle tracking with Yolov5 + Deep Sort with PyTorch
-
+Detect who's looking at the store among the people passing by + tracking
 <p>
     <img src="videos/women_frame218.PNG" width="300"/>
 <img src="videos/women2_frame334.PNG" width="300"/>
